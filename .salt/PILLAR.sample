@@ -16,16 +16,42 @@
 # but lists are overidden
 makina-projects.projectname:
   data:
-    opt: value
-    password: SecretToBeChangedInsidePillar
-  env_defaults:
-    dev:
-      opt: value2
-  os_defaults:
-    Ubuntu:
-# os  filter
-      opt: value1
-    Debian:
-# os familly filter
-      opt1: value11
+    wsvn_ver: "2.3.3"
+    var: "{data_root}/var"
+    doc_root: "{data_root}/www"
+    websvn_doc_root: "{data_root}/websvn_www"
+    svn_vhost: "salt://makina-projects/{name}/files/svn.conf"
+    websvn_vhost: "salt://makina-projects/{name}/files/websvn.conf"
+    htaccess: /etc/corpus_{name}htaccess
+    configs:
+      svn:
+        template: "salt://makina-projects/{name}/files/svn_authz"
+        dest: "/etc/{name}svnauthz"
+        mode: "644"
+      websvn:
+        template: "salt://makina-projects/{name}/files/distconfig.php"
+        dest: "{websvn_doc_root}/include/distconfig.php"
+        mode: "644"
+        user: "{user}"
+        group: "{group}"
+    domain: "{fqdn}"
+    websvn_domain: "websvn-{fqdn}"
+    server_aliases: []
+    websvn_server_aliases: []
+    http_users:
+      - root: {{salt['mc_utils.generate_stored_password']('svnaccess')}}
+    ldap_url: "ldap://ldap.x.net:389/ou=People,dc=x"
+    ldap_groups:
+      - cn=subversion,ou=Group,dc=x
+      - cn=svnguest,ou=Group,dc=x
+    #ldap_user_url: ''
+    authz:
+      - "groups":
+        - "everyone=mpa"
+        - "foo-dev=mpa"
+      - "perso:/mpa":
+        - "mpa=rw"
+
+# copy /paste oin your pillar
+makina-states.services.http.apache.mpm: prefork
 # vim:set ft=sls:

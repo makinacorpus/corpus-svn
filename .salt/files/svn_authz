@@ -1,0 +1,9 @@
+{% set cfg = salt['mc_project.get_configuration'](cfg) %}
+{% for groups in cfg.data.get('authz', [])%} 
+{% for g, lines in groups.items() %}
+[{{g}}]
+{% for l in lines %}
+{{l}}
+{% endfor%}
+{% endfor %}
+{% endfor %}
