@@ -30,7 +30,7 @@ makina-projects.projectname:
         mode: "644"
       websvn:
         template: "salt://makina-projects/{name}/files/distconfig.php"
-        dest: "{websvn_doc_root}/include/distconfig.php"
+        dest: "{websvn_doc_root}/include/config.php"
         mode: "644"
         user: "{user}"
         group: "{group}"

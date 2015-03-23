@@ -1,7 +1,7 @@
 <?php
 {% set cfg = salt['mc_project.get_configuration'](cfg) %} 
 {% set data = cfg.data %}
-config->parentPath('{{data.var}}');
+$config->parentPath('{{data.var}}');
 $config->addTemplatePath($locwebsvnreal.'/templates/calm/');
 $config->addTemplatePath($locwebsvnreal.'/templates/BlueGrey/');
 $config->addTemplatePath($locwebsvnreal.'/templates/Elegant/');
